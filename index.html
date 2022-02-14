@@ -4,18 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>Next</title>
+  <title>Enhydra</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Next">
+  <meta name="description" content="參禪之初,看山是山,看水是水;禪有悟時,看山不是山,看水不是水;禪中徹悟,看山仍然山,看水仍然是水">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Enhydra">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Next">
+<meta property="og:site_name" content="Enhydra">
+<meta property="og:description" content="參禪之初,看山是山,看水是水;禪有悟時,看山不是山,看水不是水;禪中徹悟,看山仍然山,看水仍然是水">
 <meta property="og:locale">
-<meta property="article:author" content="utomore">
-<meta property="article:tag" content="game, programm, tools">
+<meta property="article:author" content="Che">
+<meta property="article:tag" content="game, program, life">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Next" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Enhydra" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -43,11 +45,11 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Next</a>
+        <a href="/" id="logo">Enhydra</a>
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">Station</a>
+          <a href="/" id="subtitle">Revolution</a>
         </h2>
       
     </div>
@@ -136,9 +138,7 @@
 </ol>
 <p>這系列學習筆記使用 C/C++ 來實作資料結構</p>
 <hr>
-<blockquote>
-<h2 id="1-介紹資料儲存"><a href="#1-介紹資料儲存" class="headerlink" title="1. 介紹資料儲存"></a>1. 介紹資料儲存</h2></blockquote>
-<p>在世界上的資料，目前有四種主要的處理方式，其中對應到不同的技術與演算法。分別為:</p>
+<h2 id="1-介紹資料儲存"><a href="#1-介紹資料儲存" class="headerlink" title="1. 介紹資料儲存"></a>1. 介紹資料儲存</h2><p>在世界上的資料，目前有四種主要的處理方式，其中對應到不同的技術與演算法。分別為:</p>
 <p><strong>資料結構 (Data structure)</strong></p>
 <ul>
 <li>如何有效率的儲存/組織主記憶體上的資料</li>
@@ -163,9 +163,7 @@
 </ul>
 <p>一般程式執行時，處理的流程為: 硬碟(Hard Disk) &gt; 主記憶體 &gt; CPU 暫存器 &gt; CPU 處理。</p>
 <hr>
-<blockquote>
-<h2 id="2-主記憶體-Stack-amp-Heap"><a href="#2-主記憶體-Stack-amp-Heap" class="headerlink" title="2. 主記憶體 Stack &amp; Heap"></a>2. 主記憶體 Stack &amp; Heap</h2></blockquote>
-<p>記憶體最小單位 Bytes，每一個 Bytes 都有自己的位址編號(線性唯一編號)。現今的記憶體會進行主動切割為 Segement 當作一個可管理的記憶體單元(64kB = 64 * 1024 = 65536)</p>
+<h2 id="2-主記憶體-Stack-amp-Heap"><a href="#2-主記憶體-Stack-amp-Heap" class="headerlink" title="2. 主記憶體 Stack &amp; Heap"></a>2. 主記憶體 Stack &amp; Heap</h2><p>記憶體最小單位 Bytes，每一個 Bytes 都有自己的位址編號(線性唯一編號)。現今的記憶體會進行主動切割為 Segement 當作一個可管理的記憶體單元(64kB = 64 * 1024 = 65536)</p>
 <h3 id="程式碼如何使用記憶體"><a href="#程式碼如何使用記憶體" class="headerlink" title="程式碼如何使用記憶體"></a><strong>程式碼如何使用記憶體</strong></h3><p>一個 Segement (0 ~ 65535)，主要被分為三個部分。其中程式碼中變數所佔的 Bytes 數是根據編譯器與作業系統來決定。</p>
 <ul>
 <li>Heap</li>
@@ -208,9 +206,7 @@
 <li>動態分配記憶體(Dynamic Allocation): 可使用 Stack、Heap</li>
 </ul>
 <hr>
-<blockquote>
-<h2 id="3-實體與邏輯資料結構"><a href="#3-實體與邏輯資料結構" class="headerlink" title="3. 實體與邏輯資料結構"></a>3. 實體與邏輯資料結構</h2></blockquote>
-<p><em>實體資料結構(Physical data structure)</em> ，決定實際資料儲存在哪一塊記憶體，主要儲存方式為</p>
+<h2 id="3-實體與邏輯資料結構"><a href="#3-實體與邏輯資料結構" class="headerlink" title="3. 實體與邏輯資料結構"></a>3. 實體與邏輯資料結構</h2><p><em>實體資料結構(Physical data structure)</em> ，決定實際資料儲存在哪一塊記憶體，主要儲存方式為</p>
 <p><strong>Array</strong></p>
 <ul>
 <li>固定大小(Size)</li>
@@ -241,9 +237,7 @@
 <li>Hash Table: 原則 Hash function</li>
 </ul>
 <hr>
-<blockquote>
-<h2 id="4-ADT-抽象資料結構"><a href="#4-ADT-抽象資料結構" class="headerlink" title="4. ADT 抽象資料結構"></a>4. ADT 抽象資料結構</h2></blockquote>
-<p>將較為底層的操作(如:位元等級的運算)隱藏，讓使用者只需要使用規定好的介面對資料進行存取異動即可。一般根據資料儲存資訊，資料操作來理解。</p>
+<h2 id="4-ADT-抽象資料結構"><a href="#4-ADT-抽象資料結構" class="headerlink" title="4. ADT 抽象資料結構"></a>4. ADT 抽象資料結構</h2><p>將較為底層的操作(如:位元等級的運算)隱藏，讓使用者只需要使用規定好的介面對資料進行存取異動即可。一般根據資料儲存資訊，資料操作來理解。</p>
 <p><strong>資料型別(Data type)</strong></p>
 <p>顯示資料(Representation of Data)</p>
 <ul>
@@ -292,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/08/15/202108-DS-Intro/" data-id="cksd2wjvm0000psvg1q4d96an" data-title="DataStructure 1 - Intro" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/08/15/202108-DS-Intro/" data-id="cksd0me640005x0vgbtfnc96t" data-title="DataStructure 1 - Intro" class="article-share-link">Teilen</a>
       
       
       
@@ -1176,7 +1170,7 @@ eyJoaXN0b3J5IjpbLTE4MDAyMTE0MjhdfQ==
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2021 utomore<br>
+      &copy; 2022 Che<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
