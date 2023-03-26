@@ -209,186 +209,11 @@
 <li>老師: Adbul Bari</li>
 <li>時長: 58 hr 30 min</li>
 </ul>
-<hr>
-<h2 id="0-Introduction-基本介紹"><a href="#0-Introduction-基本介紹" class="headerlink" title="0. Introduction 基本介紹"></a>0. Introduction 基本介紹</h2><p>資料結構表達出如何有組織地將資料放置於記憶體中。主要分類為:</p>
-<ul>
-<li>實際資料結構(Physical Data Structure)<ul>
-<li>陣列 Array</li>
-<li>串列 Linked List</li>
-</ul>
-</li>
-<li>邏輯資料結構(Logical Data Structure)<ul>
-<li>堆疊 Stack</li>
-<li>駐列 Queue</li>
-<li>樹 Trees</li>
-<li>圖 Graph</li>
-<li>哈希表 Hashing</li>
-<li>遞迴 Recursion</li>
-</ul>
-</li>
-</ul>
-<p>好的資料結構規劃，搭配上演算法可以讓資料存取上更加的有效率。最後會簡單說明上方這些資料結構的基本特性。</p>
-<p><strong>學習資料結構的等級</strong></p>
-<ol>
-<li>知道資料結構如何運作</li>
-<li>知道執行時的消耗、可以有效的分析該資料結構的效率</li>
-<li>可以自行創建有利於情況的資料結構</li>
-</ol>
-<p>這系列學習筆記使用 C/C++ 來實作資料結構</p>
-<hr>
-<blockquote>
-<h2 id="1-介紹資料儲存"><a href="#1-介紹資料儲存" class="headerlink" title="1. 介紹資料儲存"></a>1. 介紹資料儲存</h2></blockquote>
-<p>在世界上的資料，目前有四種主要的處理方式，其中對應到不同的技術與演算法。分別為:</p>
-<p><strong>資料結構 (Data structure)</strong></p>
-<ul>
-<li>如何有效率的儲存/組織主記憶體上的資料</li>
-<li>如何有效率的存取主記憶體中的資料</li>
-</ul>
-<p><strong>資料庫 (Storage)</strong></p>
-<ul>
-<li>如何將資料放置於硬碟 (Hard Disk) 中，並採用標準的格式，使主記憶體更容易從第三類儲存設備中存取資料</li>
-<li>重點在於如何設計資料庫結構</li>
-</ul>
-<p><strong>資料倉儲 (Data Warehouse)</strong></p>
-<ul>
-<li>儲存大量不常使用的資料 (Legacy data or historical data)</li>
-<li>由大量的硬碟陣列 (Array of Disk)磁片儲存</li>
-<li>目的儲存10年、50年以上</li>
-<li>專門處理此種資料的演算法: <strong>資料探勘</strong> (Data Mining Algorithm)</li>
-</ul>
-<p><strong>大數據(Big Data)</strong></p>
-<ul>
-<li>藉由網路為主要的媒介，蒐集各式各樣的資料並處理</li>
-<li>主要演算法: <strong>機器學習</strong></li>
-</ul>
-<p>一般程式執行時，處理的流程為: 硬碟(Hard Disk) &gt; 主記憶體 &gt; CPU 暫存器 &gt; CPU 處理。</p>
-<hr>
-<blockquote>
-<h2 id="2-主記憶體-Stack-amp-Heap"><a href="#2-主記憶體-Stack-amp-Heap" class="headerlink" title="2. 主記憶體 Stack &amp; Heap"></a>2. 主記憶體 Stack &amp; Heap</h2></blockquote>
-<p>記憶體最小單位 Bytes，每一個 Bytes 都有自己的位址編號(線性唯一編號)。現今的記憶體會進行主動切割為 Segement 當作一個可管理的記憶體單元(64kB = 64 * 1024 = 65536)</p>
-<h3 id="程式碼如何使用記憶體"><a href="#程式碼如何使用記憶體" class="headerlink" title="程式碼如何使用記憶體"></a><strong>程式碼如何使用記憶體</strong></h3><p>一個 Segement (0 ~ 65535)，主要被分為三個部分。其中程式碼中變數所佔的 Bytes 數是根據編譯器與作業系統來決定。</p>
-<ul>
-<li>Heap</li>
-<li>Stack</li>
-<li>Code Section</li>
-</ul>
-<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><ol>
-<li>使用範圍: 記憶體編號<strong>低到高</strong></li>
-<li> 函數在**編譯時期(Compiler time)**決定需要多少 Bytes 的記憶體空間</li>
-<li>當函數呼叫時，自動分配；當函數結束時，自動釋放</li>
-<li>程式可直接存取 (stack 與 code section 資源)</li>
-</ol>
-<h3 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h3><p>名稱常常同時用於兩個情境(很容易混淆) </p>
-<ul>
-<li>被組織如同塔狀的結構</li>
-<li>(此處用法)沒有組織，但看起來像塔狀的結構</li>
-</ul>
-<ol>
-<li>使用範圍: 記憶體編號<strong>高到低</strong></li>
-<li>無組織</li>
-<li>Heap Memory 被稱為 Resources(資源)<br> 需要時可動態拿取；不需要時可以自行釋放</li>
-<li>程式<strong>無法直接存取</strong> Heap 記憶體資源<ul>
-<li>需要透過 <strong>Pointer</strong> 指標存取</li>
-</ul>
-</li>
-<li>需要使用 C++(new)、C(malloc) 來創建空間</li>
-<li>不需要使用時，需要透過 C++(delete [])、C(free()) 來釋放空間<ul>
-<li>可能造成位址丟失，該記憶體資源將永久卡住無法使用(Memory Leak)</li>
-<li>如果無釋放，當資源塞滿 Heap 會導致程式發生不可預期的情況</li>
-</ul>
-</li>
-</ol>
-<h3 id="Code-Section"><a href="#Code-Section" class="headerlink" title="Code Section"></a>Code Section</h3><ul>
-<li>根據讀取的程式大小來動態調整</li>
-<li>放置函數的程式碼(e.g main function)</li>
-</ul>
-<p>操作記憶體模式有</p>
-<ul>
-<li>靜態分配記憶體(Static Allocation): 只有 Stack</li>
-<li>動態分配記憶體(Dynamic Allocation): 可使用 Stack、Heap</li>
-</ul>
-<hr>
-<blockquote>
-<h2 id="3-實體與邏輯資料結構"><a href="#3-實體與邏輯資料結構" class="headerlink" title="3. 實體與邏輯資料結構"></a>3. 實體與邏輯資料結構</h2></blockquote>
-<p><em>實體資料結構(Physical data structure)</em> ，決定實際資料儲存在哪一塊記憶體，主要儲存方式為</p>
-<p><strong>Array</strong></p>
-<ul>
-<li>固定大小(Size)</li>
-<li>可以被創建在 Stack 與 Heap (使用 pointer)</li>
-</ul>
-<p><strong>Linked List</strong></p>
-<ul>
-<li>動態資料結構</li>
-<li>可動態調整大小</li>
-<li>只能被創建在 Heap (使用 pointer)<ul>
-<li>在 Stack 中創建 Head 的指標指向第一個節點</li>
-</ul>
-</li>
-</ul>
-<p><em>邏輯資料結構(Logical data structure)</em> ，決定依照什麼原則存取資料。(底層依然是由 array, Linked List 來實作)。主要方式為</p>
-<p><strong>線性資料結構(Linear)</strong></p>
-<ul>
-<li>Stack: 原則 LIFO</li>
-<li>Queue: 原則 FIFO</li>
-</ul>
-<p><strong>非線性資料結構(non-Linear)</strong></p>
-<ul>
-<li>Tree: 原則 階層式</li>
-<li>Graph: 原則 節點、連結式</li>
-</ul>
-<p><strong>表格式資料結構(Tabular)</strong></p>
-<ul>
-<li>Hash Table: 原則 Hash function</li>
-</ul>
-<hr>
-<blockquote>
-<h2 id="4-ADT-抽象資料結構"><a href="#4-ADT-抽象資料結構" class="headerlink" title="4. ADT 抽象資料結構"></a>4. ADT 抽象資料結構</h2></blockquote>
-<p>將較為底層的操作(如:位元等級的運算)隱藏，讓使用者只需要使用規定好的介面對資料進行存取異動即可。一般根據資料儲存資訊，資料操作來理解。</p>
-<p><strong>資料型別(Data type)</strong></p>
-<p>顯示資料(Representation of Data)</p>
-<ul>
-<li>資料如何被儲存</li>
-<li>舉例: <code>int x</code>；(被儲存 4 bytes = 32 bits)</li>
-</ul>
-<p>資料操作(Operation on Data)</p>
-<ul>
-<li>可以對該資料進行何種操作</li>
-<li>舉例: <code>-, +, *, /, %, ++, --</code></li>
-</ul>
-<p><strong>舉例: ADT(抽象型別)</strong></p>
-<p>顯示資料</p>
-<ul>
-<li>儲存資料的空間 <code>int *A</code> (儲存在 Heap 動態分配)</li>
-<li>最大容量(Capacity) <code>int maxSize</code></li>
-<li>目前存放多少資料(size) <code>int length</code></li>
-</ul>
-<p>資料操作</p>
-<ul>
-<li>新增<ul>
-<li><code>add(element)</code> / <code>append(element)</code></li>
-<li><code>add(index, element)</code> / <code>insert(index, element)</code></li>
-</ul>
-</li>
-<li>刪除<ul>
-<li><code>remove(index)</code></li>
-</ul>
-</li>
-<li>設置<ul>
-<li><code>set(index, element)</code> / <code>replace(index, element)</code></li>
-</ul>
-</li>
-<li>搜尋<ul>
-<li><code>get(index)</code></li>
-<li><code>search(key)</code> / <code>contains(key)</code></li>
-</ul>
-</li>
-<li>排序<ul>
-<li><code>sort()</code></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3>
+        
+          <p class="article-more-link">
+            <a href="/2021/08/15/202108-DS-Intro/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -434,41 +259,11 @@
       
         <h2 id="UML-介紹"><a href="#UML-介紹" class="headerlink" title="UML 介紹"></a>UML 介紹</h2><p>當需要視覺化物件間的關係 UML 時，可以直接快速的使用對應的程式格式顯示出想要的結果，雖然可能圖案不是非常美觀，但<strong>主要適用於快速規劃出一個架構，讓團隊中每個人的認知是統一的</strong>。</p>
 <p>有各式各樣的 UML 繪製工具，其實使用 ppt 或是 draw.io 也可以畫，工具並沒有高低之分，主要是看自己適合哪一種。這邊將介紹 plantUML 結合 vscode 來進行繪製。</p>
-<hr>
-<h2 id="PlantUML-支援種類"><a href="#PlantUML-支援種類" class="headerlink" title="PlantUML 支援種類"></a>PlantUML 支援種類</h2><p><strong>PlantUML</strong>是一個開源的 UML 繪製工具，主要提供以下種類圖的繪製:</p>
-<ul>
-<li>Sequence diagram</li>
-<li>Usecase diagram</li>
-<li>Class diagram</li>
-<li>Activity diagram</li>
-<li>Component diagram</li>
-<li>Deployment diagram</li>
-<li>State diagram</li>
-<li>Timing diagram</li>
-</ul>
-<hr>
-<h2 id="PlantUML-範例"><a href="#PlantUML-範例" class="headerlink" title="PlantUML 範例"></a>PlantUML 範例</h2><p>使用對應格式的程式碼(Sequence diagram)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@startuml practice</span><br><span class="line"></span><br><span class="line">Alice -&gt; &quot;Bob()&quot; : Hello</span><br><span class="line">&quot;Bob()&quot; -&gt; &quot;This is very\n long&quot; as Long</span><br><span class="line">&#x27; 註解方式</span><br><span class="line">Long --&gt; &quot;Bob()&quot; : ok</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
-<p>可以產生對應的圖片</p>
-<img src="/2021/05/31/tool-plantUML/demoUML.png" class="" title="demoUML">
-
-<hr>
-<h2 id="PlantUML-環境安裝"><a href="#PlantUML-環境安裝" class="headerlink" title="PlantUML 環境安裝"></a>PlantUML 環境安裝</h2><p>Dependency: VScode + PlantUML plugin + Java SE Development Kit (+ Graphviz)</p>
-<p>官網寫沒有安裝 Graphviz 就只能繪製 Sequence Diagram，但是我都可以繪製，所以暫時沒裝。</p>
-<p>首先必須先下載 VScode : <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a><br>下載完後到<strong>延伸模組</strong>搜尋: PlantUML，如下圖:</p>
-<img src="/2021/05/31/tool-plantUML/installPlugin.png" class="" title="installPlugin">
-
-<p>套件安裝完之後可以隨意開啟一個資料夾，嘗試上方的程式碼。利用快捷鍵<code>Alt+d</code>，可以在右方直接顯示正在輸入的結果圖形，同步調整。</p>
-<p>如果這時候顯示<strong>紅色驚嘆號</strong>，表示需要下載 Java 開發套件<br>Java SE Development kit 下載: <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jdk16-downloads.html">https://www.oracle.com/java/technologies/javase-jdk16-downloads.html</a></p>
-<p>安裝完後，重新啟動 vscode 就可以看到圖形了。</p>
-<img src="/2021/05/31/tool-plantUML/finish.png" class="" title="finish">
-<h4 id="匯出圖片"><a href="#匯出圖片" class="headerlink" title="匯出圖片"></a>匯出圖片</h4><p>使用 vscode 快捷鍵 <code>ctrl + shift + p</code> 輸入 <code>plantuml</code>，可以看到一個<strong>匯出目前圖表</strong>，點選後選擇輸出的格式即可。</p>
-<img src="/2021/05/31/tool-plantUML/exportImage.png" class="" title="exportImage">
-
-<p>目前先講到這，未來再做不同 UML 格式的文章。<br>謝謝</p>
-<hr>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p>“Wiki UML”: <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80">https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80</a><br>“vscode”: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a><br>“Java SE Dev” : <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jdk16-downloads.html">https://www.oracle.com/java/technologies/javase-jdk16-downloads.html</a></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2021/05/31/tool-plantUML/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -516,46 +311,11 @@
 <ul>
 <li>需求(需事先安裝or註冊): nodejs, Git, Github</li>
 </ul>
-<h4 id="建置步驟"><a href="#建置步驟" class="headerlink" title="建置步驟"></a>建置步驟</h4><p>初始化專案: <folder>置換成資料夾名稱</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br><span class="line">$ <span class="built_in">cd</span> [folder]</span><br><span class="line">$ npm install </span><br></pre></td></tr></table></figure>
-<p>創建完成後，可以看到以下資料夾格式</p>
-<img src="/2021/05/30/tool-hexo/folderList.png" class="" title="folderList">
-
-<ul>
-<li>_config.yml: 各種網誌的設定配置</li>
-<li>/scaffolds: 文章的模板，創建文章時會使用對應名稱的模板，進行格式初始化</li>
-<li>/themes: 整個網誌的 theme，可以到官網下載</li>
-<li>/source: 用來存放，草稿、文章的位置<ul>
-<li>_drafts:存放草稿</li>
-<li>_posts:存放文章</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="撰寫文章-post"><a href="#撰寫文章-post" class="headerlink" title="撰寫文章 post"></a>撰寫文章 post</h2><p><em><strong>利用模板創建草稿</strong></em></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;<span class="built_in">title</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p><em><strong>將草稿發布至文章</strong></em><br>也可以直接使用此指令創建文章</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;<span class="built_in">title</span>&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="佈署與發佈"><a href="#佈署與發佈" class="headerlink" title="佈署與發佈"></a>佈署與發佈</h2><h4 id="產生-html-檔案"><a href="#產生-html-檔案" class="headerlink" title="產生 html 檔案"></a>產生 html 檔案</h4><p>因為撰寫的主要為 <strong>.md</strong> 格式，需要以下指令將 .md -&gt; .html 與 .css 等網頁檔案格式</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate </span><br></pre></td></tr></table></figure>
-<h4 id="佈署到-Github-上"><a href="#佈署到-Github-上" class="headerlink" title="佈署到 Github 上"></a>佈署到 Github 上</h4><p>(第一次)<br>需調整 <strong>_config.yml</strong> 檔案中的 Deploy 屬性內的值，注意 branch 名稱需要先到 github 上查看主要的 branch 名稱。(Github預設已經從 master -&gt; main)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type: git</span><br><span class="line">repo: https://github.com/&lt;account&gt;/&lt;account&gt;.github.io.git</span><br><span class="line">branch: &lt;branch name&gt;</span><br></pre></td></tr></table></figure>
-<p>產生對應的格式檔案後，接著就可以將網誌 push 到 github 上。</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p><strong>整體步驟為</strong></p>
-<ul>
-<li>創建草稿 -&gt; 發佈到 publish 區 -&gt; 產生 html等檔案 -&gt; 佈署到 github</li>
-</ul>
-<hr>
-<h2 id="本機觀看測試"><a href="#本機觀看測試" class="headerlink" title="本機觀看測試"></a>本機觀看測試</h2><p>(第一次)<br>需要安裝 hexo-server</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
-
-<p>可以在本機創建 server 觀察網誌狀態。</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br><span class="line">#可額外指定port(預設為<span class="number">4000</span>)</span><br><span class="line">hexo server -p <span class="number">5000</span></span><br></pre></td></tr></table></figure>
-
+        
+          <p class="article-more-link">
+            <a href="/2021/05/30/tool-hexo/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -606,55 +366,11 @@
 <li>可輸入格式: html, xml, LaTeX, PDF, RTF, Unix man</li>
 </ul>
 <p>官網: <a target="_blank" rel="noopener" href="https://www.doxygen.nl/index.html" title="Doxygen Web">Doxygen</a></p>
-<hr>
-<h2 id="基礎操作"><a href="#基礎操作" class="headerlink" title="基礎操作"></a>基礎操作</h2><h2 id="安裝-Doxygen-Ubuntu"><a href="#安裝-Doxygen-Ubuntu" class="headerlink" title="安裝 Doxygen (Ubuntu)"></a>安裝 Doxygen (Ubuntu)</h2><pre><code>sudo apt-get install doxygen
-</code></pre>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>Doxygen 可分為兩部分</p>
-<ol>
-<li>特定格式註解的寫法(主要)</li>
-<li>利用Doxygen工具來產生文件</li>
-</ol>
-<p>產生一份 Doxygen 預設的 Config 檔案，並以此檔案來進行修改</p>
-<ul>
-<li><code>doxygen -g [config-file]</code>: 會產生Doxyfile(一個檔名叫做 “[config-file]”的預設 config 檔)</li>
-<li><code>doxygen -u [config-file]</code>: 更新舊的配置文件</li>
-<li><code>doxygen [config-file]</code>: 根據Doxyfile樣式，生成文檔</li>
-</ul>
-<p>生成不同風格的文件，如 rtf, html, LaTeX</p>
-<ul>
-<li>RTF格式: <code>doxygen -w rtf styleSheetFile</code></li>
-<li>HTML格式: <code>doxygen -w html headerFile footerFile styleSheetFile [config-file]</code></li>
-<li>LaTeX格式: <code>doxygen -w latex headerFile StyleSheetFile [config-file]</code></li>
-</ul>
-<h3 id="註解格式"><a href="#註解格式" class="headerlink" title="註解格式"></a>註解格式</h3><p>一般來說，要為每個 class 和 class 中重要的成員函數增加短註解和長註解。</p>
-<ul>
-<li>短註解給出類別或函數的基本訊息的描述</li>
-<li>長註解則是更加完整的描述。</li>
-</ul>
-<ol>
-<li><strong>類別的短註解和長註解</strong>與<strong>成員函數的簡短描述</strong>，放在標頭檔中。</li>
-<li><strong>成員函數的長註解</strong>將出現在成員函數的實現出現的位置</li>
-</ol>
-<h3 id="不同語言的風格，範例"><a href="#不同語言的風格，範例" class="headerlink" title="不同語言的風格，範例"></a>不同語言的風格，範例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># JavaDoc 類型的多行註解</span><br><span class="line">/*</span><br><span class="line">*</span><br><span class="line">* .... code .....</span><br><span class="line">*</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"># QT 類型的多行註解</span><br><span class="line">/*!</span><br><span class="line">.... code ....</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"># 單行註解</span><br><span class="line">//! ... one line of text ...</span><br><span class="line">/// ... one line of text ...</span><br></pre></td></tr></table></figure>
-
-<p>範例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**    </span><br><span class="line">*   </span><br><span class="line">* @param  Description of method&#x27;s or function&#x27;s input parameter  </span><br><span class="line">* @param  ...  </span><br><span class="line">* @return Description of the return value  </span><br><span class="line">*/  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>C++ 中常用的格式</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @file  </span></span><br><span class="line"><span class="comment"> * @author    </span></span><br><span class="line"><span class="comment"> * @version </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> * @section LICENSE  </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> * This program is free software; you can redistribute it and/or  </span></span><br><span class="line"><span class="comment"> * modify it under the terms of the GNU General Public License as  </span></span><br><span class="line"><span class="comment"> * published by the Free Software Foundation; either version 2 of  </span></span><br><span class="line"><span class="comment"> * the License, or (at your option) any later version.  </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> * This program is distributed in the hope that it will be useful, but  </span></span><br><span class="line"><span class="comment"> * WITHOUT ANY WARRANTY; without even the implied warranty of  </span></span><br><span class="line"><span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU  </span></span><br><span class="line"><span class="comment"> * General Public License for more details at  </span></span><br><span class="line"><span class="comment"> * http://www.gnu.org/copyleft/gpl.html  </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> * @section DESCRIPTION  </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> * The time class represents a moment of time.  </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Time</span> &#123;</span>  </span><br><span class="line">   </span><br><span class="line">    <span class="keyword">public</span>:  </span><br><span class="line">       <span class="comment">/**  </span></span><br><span class="line"><span class="comment">        * Constructor that sets the time to a given value.  </span></span><br><span class="line"><span class="comment">        *  </span></span><br><span class="line"><span class="comment">        * @param timemillis Number of milliseconds  </span></span><br><span class="line"><span class="comment">        *        passed since Jan 1, 1970.  </span></span><br><span class="line"><span class="comment">        */</span>  </span><br><span class="line">       <span class="built_in">Time</span> (<span class="keyword">int</span> timemillis) &#123;  </span><br><span class="line">           <span class="comment">// the code  </span></span><br><span class="line">       &#125;  </span><br><span class="line">       <span class="comment">/**  </span></span><br><span class="line"><span class="comment">        * Get the current time.  </span></span><br><span class="line"><span class="comment">        *  </span></span><br><span class="line"><span class="comment">        * @return A time object set to the current time.  </span></span><br><span class="line"><span class="comment">        */</span>  </span><br><span class="line">       <span class="function"><span class="keyword">static</span> Time <span class="title">now</span> <span class="params">()</span> </span>&#123;  </span><br><span class="line">           <span class="comment">// the code  </span></span><br><span class="line">       &#125;  </span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="額外資料"><a href="#額外資料" class="headerlink" title="額外資料"></a>額外資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://github.com/doxygen/doxygen">Doxygen Github</a></li>
-</ol>
-<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><ol>
-<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/yuantao/article/details/402207">Doxygen 使用</a></li>
-<li><a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-9525959-id-2001574.html">Doxygen 使用總結</a></li>
-<li><a target="_blank" rel="noopener" href="http://wenku.baidu.com/view/3b33690f33687e21af45a9c0.html">Doxygen 中文手冊(1.63)</a></li>
-<li><a target="_blank" rel="noopener" href="http://wenku.baidu.com/view/3ad26a4279563c1ec5da71b7.html">Doxygen 詳解</a></li>
-<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/xiajian2010/article/details/24635501">博客</a></li>
-</ol>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/07/06/tool-Doxygen/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -705,90 +421,11 @@
 <li><a target="_blank" rel="noopener" href="http://coapp.org/">CoApp</a>。</li>
 </ul>
 <p>Scoop 專注於在 Command-line 的使用，可以安裝軟體不需要一直挑選網頁下載。</p>
-<hr>
-<h2 id="快速安裝"><a href="#快速安裝" class="headerlink" title="快速安裝"></a>快速安裝</h2><h3 id="要求-Requirement"><a href="#要求-Requirement" class="headerlink" title="要求 Requirement"></a>要求 Requirement</h3><ul>
-<li>PowerShell 3 </li>
-<li>允許 PowerShell 可執行本地腳本<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$psversiontable</span>.psversion.major <span class="comment"># should be &gt;= 3 </span></span><br><span class="line"><span class="built_in">set-executionpolicy</span> remotesigned <span class="literal">-scope</span> currentuser</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Installing-Scoop"><a href="#Installing-Scoop" class="headerlink" title="Installing Scoop"></a>Installing Scoop</h3><p>確認上方無誤後，在 powershell 中打入安裝指令。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">iex</span> (<span class="built_in">new-object</span> net.webclient).downloadstring(<span class="string">&#x27;https://get.scoop.sh&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>如果想要安裝到指定的目錄 (如 : D: \Applications\Scoop)</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="type">environment</span>]::setEnvironmentVariable(<span class="string">&#x27;SCOOP&#x27;</span>,<span class="string">&#x27;D:\Applications\Scoop&#x27;</span>,<span class="string">&#x27;User&#x27;</span>)</span><br><span class="line"><span class="variable">$env:SCOOP</span>=<span class="string">&#x27;D:\Applications\Scoop&#x27;</span></span><br><span class="line"><span class="built_in">iex</span> (<span class="built_in">new-object</span> net.webclient).downloadstring(<span class="string">&#x27;https://get.scoop.sh&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Scoop-的使用"><a href="#Scoop-的使用" class="headerlink" title="Scoop 的使用"></a>Scoop 的使用</h3><p>主要常用的指令有下列幾個 : </p>
-<ul>
-<li><code>scoop help</code><ul>
-<li>查看有哪些指令可用</li>
-</ul>
-</li>
-<li><code>scoop install &#123;app name&#125;</code> <ul>
-<li>安裝 app</li>
-</ul>
-</li>
-<li><code>scoop search &#123;app name&#125;</code><ul>
-<li>搜尋確認是否有此 app ，或觀察目前版本</li>
-</ul>
-</li>
-<li><code>scoop update</code><ul>
-<li>更新 scoop ，後方可加上 app 名稱，表示更新 app。 如果使用 * 則是安裝的全部都更新</li>
-</ul>
-</li>
-<li><code>scoop cleanup &#123;app name&#125;</code><ul>
-<li>刪掉目前沒用或較舊的 app 版本</li>
-</ul>
-</li>
-<li><code>scoop uninstall &#123;app name&#125;</code><ul>
-<li>刪掉現有的 app</li>
-</ul>
-</li>
-<li><code>scoop uninstall scoop</code><ul>
-<li>刪掉他自己</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h2><h3 id="Apps"><a href="#Apps" class="headerlink" title="Apps"></a>Apps</h3><p>Scoop 使用名稱 “App” 表示一個應用程式或是需要被安裝的程式。一個 “App”應該是一個獨立的單元，也就是說一個”App”可能包含一個或是多個可執行的腳本。</p>
-<h3 id="Buckets"><a href="#Buckets" class="headerlink" title="Buckets"></a>Buckets</h3><p>一個 Bucket 像是一個容器，裡面有包含很多個可安裝的 “App”。準確來說是一個 github 的 repository，其中包含用來描述安裝 App 的 JSON 語法，</p>
-<p>Scoop 有一個主要的 Bucket，當你使用<code>scoop install &lt;app&gt;</code> 會先搜尋主要的 bucket，當然還有一個外部的 Bucket，更甚至你可以自己做自己的 bucket。<br><strong>語法</strong></p>
-<ul>
-<li><p>調查已知的 bucket，可以直接觀察檔案 “buckets.json”，或是打入指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket known</span><br></pre></td></tr></table></figure></li>
-<li><p>安裝其他的 bucket 到電腦中</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add extras // 安裝有名的特別的 bucket。範例如下</span><br><span class="line">scoop bucket add extras https://github.com/lukesampson/scoop-extras.git</span><br><span class="line">// 主要格式為</span><br><span class="line">scoop bucket add &lt;name-of-bucket&gt; &lt;location-of-git-repo&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>創建自己的 bucket<br>使用 github 的 repository，</li>
-</ul>
-<ol>
-<li>創建一個新的 github repository</li>
-<li>加入 app 到你的 bucket 中<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/&lt;your-username&gt;/my-bucket</span><br><span class="line"><span class="built_in">cd</span> my-bucket</span><br><span class="line"><span class="string">&#x27;&#123; 	version: &quot;1.0&quot;, </span></span><br><span class="line"><span class="string">	url: &quot;https://gist.github.com/lukesampson/6446238/raw/hello.ps1&quot;, 		</span></span><br><span class="line"><span class="string">	bin: &quot;hello.ps1&quot; </span></span><br><span class="line"><span class="string">&#125;&#x27;</span> &gt; hello.json</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;add hello app&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
-<li>設定你的 scoop 去連結你自己新建立的 bucket : <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add my-bucket https://github.com/&lt;your-username&gt;/my-bucket</span><br></pre></td></tr></table></figure></li>
-<li>檢查是否成功`<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket list <span class="comment"># -&gt; 應該要看到自己的 bucket</span></span><br><span class="line">scoop search hello <span class="comment"># -&gt; 應該要看到 hello 被放在 &quot;my-bucket bucket:&quot; 下面</span></span><br><span class="line">scoop install hello</span><br><span class="line">hello</span><br><span class="line">hello <span class="comment"># -&gt; 應該要看到 &#x27;hello，&lt;windows-username&gt;!&#x27;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="App-Manifests"><a href="#App-Manifests" class="headerlink" title="App Manifests"></a>App Manifests</h3><p>“App Manifest” 是用來描述如何去安裝一個程式的 JSON 格式的檔案。<br>Example : </p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;version&quot;</span> : <span class="string">&quot;1.0&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;url&quot;</span> : <span class="string">&quot;https://github.com/lukesampon/cowsay-psh/archive/master.zip&quot;</span></span><br><span class="line">	<span class="string">&quot;extract_dir&quot;</span> : <span class="string">&quot; cowsay-psh-master&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;bin&quot;</span> : <span class="string">&quot;cowsay.ps1&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>當我們使用指令<code>scoop install </code>的時候，</p>
-<ol>
-<li>下載 url 中的 zip 檔案</li>
-<li>提取出 <code>cowsay-psh-master</code>資料夾目錄</li>
-<li>使 powershell 的腳本 .ps1 檔案可以在路徑中執行</li>
-</ol>
-<h4 id="Required-Properties"><a href="#Required-Properties" class="headerlink" title="Required Properties"></a>Required Properties</h4><ul>
-<li>version : 這個腳本準備要安裝的 APP 版本</li>
-<li>url : 下載的網址。如果超過一個以上，則可以利用 JSON 的陣列格式。可以使用 HTTP, HTTPS, FTP</li>
-</ul>
-<p>如果要改變下在後的檔案名稱，可以加入 URL 片段 (從 <code>#</code>後面開始)<br>Example : </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;http://example.org/program.exe&quot; -&gt; &quot;http://example.org/program.exe#/dl.7z&quot; // 從 #/ 後面開始</span><br></pre></td></tr></table></figure>
-<p>上面這個範例表示，下載 program.exe 檔案，但是儲存成 dl.7z。這個技術常常被用來傳遞有著不好副作用的可執行安裝檔，像是註冊表改變、放置在安裝目錄之外的文件、管理員提升提示。</p>
-<h4 id="Optional-Properties"><a href="#Optional-Properties" class="headerlink" title="Optional Properties"></a>Optional Properties</h4><ul>
-<li><code>##</code> : </li>
-<li><code>architecture</code> : <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM1NjE4ODM1MF19</li>
-<li>-&gt;</li>
-</ul>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/12/25/tool-Scoop/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -1090,40 +727,11 @@ eyJoaXN0b3J5IjpbLTE4MDAyMTE0MjhdfQ==
 <li>SQLite: 單機上使用，需要方便多方移植，頻繁讀寫</li>
 <li>MySQL: 滿足多用戶同時訪問，訪問量較大</li>
 </ul>
-<h2 id="SQLite-介紹"><a href="#SQLite-介紹" class="headerlink" title="SQLite 介紹"></a>SQLite 介紹</h2><p>SQLite是一個<strong>基於文件的資料庫</strong>，提供了處理多種數據類型的工具集，使用上比起伺服器運作的Process型伺服器較為輕鬆。</p>
-<p>當一個應用程式使用SQLite時，應用程式會直接訪問文件所在位址(SQLite資料庫)，而非通過連接埠(port, socket)來交互呼叫訪問。使得SQLite較為快速與高效。SQLite是一個實現自給自足的函數庫，沒有伺服器，不須配置的SQL資料庫引擎。</p>
-<h3 id="SQLite支持的數據類型"><a href="#SQLite支持的數據類型" class="headerlink" title="SQLite支持的數據類型"></a>SQLite支持的數據類型</h3><ul>
-<li><code>NULL</code>: null值</li>
-<li><code>INTEGER</code>: 有符號整數，按照設定用1、2、3、4、6、8字節儲存</li>
-<li><code>READ</code>: 浮點數，使用8字節IEEE浮點數方式儲存</li>
-<li><code>TEXT</code>: 字串，使用資料庫編碼(UTF-8，UTF-16BE，UTF-16LE)儲存</li>
-<li><code>BLOB</code>: 二進制檔案，如何輸入就如何輸出</li>
-</ul>
-<h3 id="SQLite-優點與缺點"><a href="#SQLite-優點與缺點" class="headerlink" title="SQLite 優點與缺點"></a>SQLite 優點與缺點</h3><h4 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h4><ul>
-<li><strong>基於文件</strong>: 整個資料庫都在磁碟中的一個文件中，有很好的<strong>遷移性</strong> </li>
-<li><strong>標準化</strong>: 支持SQL。但略去一些功能。</li>
-<li><strong>易於開發、測試</strong>: 有靈活性，且簡潔到只需一個文件和C連結庫即可。</li>
-</ul>
-<h4 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h4><ul>
-<li><strong>無用戶管理</strong>: 高級資料庫能支持用戶系統，如:能管理資料庫和table的訪問權限。SQLite無此功能。</li>
-<li><strong>缺乏額外優化性能的活躍性</strong>: 因為不支持各種技巧來提升效能。所以容易配置與使用，但因為不複雜，所以無法更快。</li>
-</ul>
-<h3 id="SQLite使用時機"><a href="#SQLite使用時機" class="headerlink" title="SQLite使用時機"></a>SQLite使用時機</h3><ol>
-<li><strong>嵌入式應用</strong>: 強調遷移性，不需多餘的擴展的應用，如: 單用戶的本地應用，移動應用，遊戲</li>
-<li><strong>代替磁碟訪問</strong>: 需要頻繁直接讀寫硬碟文件的應用。</li>
-<li><strong>測試</strong>: 易於建置與攜帶</li>
-</ol>
-<h3 id="SQLite不適合應用"><a href="#SQLite不適合應用" class="headerlink" title="SQLite不適合應用"></a>SQLite不適合應用</h3><ol>
-<li><strong>多用戶應用</strong>: 如果應用程式需要被多用戶同時訪問與存取，則功能上無法完整支援</li>
-<li><strong>需要大面積寫入數據的應用</strong>: SQLite缺陷是寫入操作，同一時間只允許一個寫操作，因此throughput有限。</li>
-</ol>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://read01.com/zh-tw/oOJMm6.html#.WsbofohuaUk">https://read01.com/zh-tw/oOJMm6.html#.WsbofohuaUk</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.sqlite.org/index.html">http://www.sqlite.org/index.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.sqlite.org/cintro.html#summary">https://www.sqlite.org/cintro.html#summary</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-intro.html">http://www.runoob.com/sqlite/sqlite-intro.html</a></li>
-</ul>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/04/21/lib-SQLite/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
