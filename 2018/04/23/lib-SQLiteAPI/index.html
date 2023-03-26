@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SQLite(3)(C/C++) API | Again</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SQLite (C&#x2F;C+) API介紹中國的行列與台灣相反 Sqlite3 的基本語句在程式碼上方加上宏定義 1typedef struct sqlite3 sqlite3; &#x2F;&#x2F;可把sqlite3 當成一個新的資料型態  基本函數介紹打開 或 新建 一個數據庫文件sqlite3_open 12345&#x2F;&#x2F;函數原型int sqlite3_open(		const char *filename, 	&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLite(3)(C&#x2F;C++) API">
+<meta property="og:url" content="http://example.com/2018/04/23/lib-SQLiteAPI/index.html">
+<meta property="og:site_name" content="Again">
+<meta property="og:description" content="SQLite (C&#x2F;C+) API介紹中國的行列與台灣相反 Sqlite3 的基本語句在程式碼上方加上宏定義 1typedef struct sqlite3 sqlite3; &#x2F;&#x2F;可把sqlite3 當成一個新的資料型態  基本函數介紹打開 或 新建 一個數據庫文件sqlite3_open 12345&#x2F;&#x2F;函數原型int sqlite3_open(		const char *filename, 	&#x2F;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-23T01:20:47.000Z">
+<meta property="article:modified_time" content="2023-03-26T16:18:10.712Z">
+<meta property="article:author" content="utomore">
+<meta property="article:tag" content="SQLite">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Again" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Again</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">From Here</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-lib-SQLiteAPI" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/04/23/lib-SQLiteAPI/" class="article-date">
+  <time class="dt-published" datetime="2018-04-23T01:20:47.000Z" itemprop="datePublished">2018-04-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Library/">Library</a>►<a class="article-category-link" href="/categories/Library/Storage/">Storage</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SQLite(3)(C/C++) API
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="SQLite-C-C-API介紹"><a href="#SQLite-C-C-API介紹" class="headerlink" title="SQLite (C/C+) API介紹"></a>SQLite (C/C+) API介紹</h2><p>中國的行列與台灣相反</p>
+<h3 id="Sqlite3-的基本語句"><a href="#Sqlite3-的基本語句" class="headerlink" title="Sqlite3 的基本語句"></a>Sqlite3 的基本語句</h3><p>在程式碼上方加上宏定義</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">sqlite3</span> <span class="title">sqlite3</span>;</span> <span class="comment">//可把sqlite3 當成一個新的資料型態</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="基本函數介紹"><a href="#基本函數介紹" class="headerlink" title="基本函數介紹"></a>基本函數介紹</h4><p>打開 或 新建 一個數據庫文件<br><strong>sqlite3_open</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函數原型</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_open</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">const</span> <span class="keyword">char</span> *filename, 	<span class="comment">//數據庫文件地址，(UTF-8)</span></span></span></span><br><span class="line"><span class="params"><span class="function">		sqlite3 **ppDb		<span class="comment">//sqlite3數據庫類型 &quot;句炳&quot;(待查)</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>執行sql語句。(一般用來執行不用返回值的 sql 語句，如 create table, update )</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">**sqlite3_exec**</span><br><span class="line"></span><br><span class="line">	<span class="comment">//函數原型</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sqlite3_exec</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">			sqlite3 *, </span></span></span><br><span class="line"><span class="params"><span class="function">			<span class="keyword">const</span> <span class="keyword">char</span> *sql,</span></span></span><br><span class="line"><span class="params"><span class="function">			<span class="keyword">int</span> (*callback)(<span class="keyword">void</span> *, <span class="keyword">int</span>, <span class="keyword">char</span> **, <span class="keyword">char</span> **),</span></span></span><br><span class="line"><span class="params"><span class="function">			<span class="keyword">void</span> *,</span></span></span><br><span class="line"><span class="params"><span class="function">			<span class="keyword">char</span> **errmsg</span></span></span><br><span class="line"><span class="params"><span class="function">	)</span></span>;</span><br><span class="line">	<span class="comment">// 第一個參數是 sqlite3 數據句炳</span></span><br><span class="line">	<span class="comment">// sql : 執行的 sql 語句</span></span><br><span class="line">	<span class="comment">// 第三個參數是個回調函數，在執行本函數後會執行回調函數，不用則填NULL</span></span><br><span class="line">	<span class="comment">// 第四個參數是傳給回調函數，不用則填NULL</span></span><br><span class="line">	<span class="comment">// errmsg : 出錯信息，不用則填NULL</span></span><br><span class="line">	<span class="comment">// * 可執行一些非查詢類的 sql 語句 </span></span><br></pre></td></tr></table></figure>
+
+<p>把一條 SQL 語句編譯成字節留給後面的執行函數(並不執行)<br><strong>sqlite3_prepare</strong> or <strong>sqlite3_prepare_v2</strong>新版本</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函數原型</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_prepare</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">		sqlite3 *db,			<span class="comment">// Database handle</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">const</span> <span class="keyword">char</span> *zSql,		<span class="comment">// SQL statement, UTF-8 encoded</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">int</span> nByte,				<span class="comment">// Maximum length of zSql in bytes</span></span></span></span><br><span class="line"><span class="params"><span class="function">		sqlite3_stmt **ppStmt,	<span class="comment">// OUT: Statemnet handle</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">const</span> <span class="keyword">char</span> **pzTail		<span class="comment">// OUT: Pointer to unused portion of zSql</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line">   <span class="comment">/* </span></span><br><span class="line"><span class="comment">       db: 數據庫句炳</span></span><br><span class="line"><span class="comment">    zSql: SQL語句</span></span><br><span class="line"><span class="comment">    nByte: 如果nByte小於0，則函數取出zSql中從開始到第一個0終止符的內容;</span></span><br><span class="line"><span class="comment">		  如果nByte不是負數，那個她就是這個函數能從zSql中讀取的字節數的最大值</span></span><br><span class="line"><span class="comment">    pzTail: 上面之nSql在遇見中止符或到達設定的nByte之後結束，</span></span><br><span class="line"><span class="comment">		  假如zSql還有剩餘的內容，則這些剩餘的內容存放到 pZTail中，不包括中止符</span></span><br><span class="line"><span class="comment">    ppStmt: 能夠使用sqlite3_step()執行的編譯好的準備語句的句炳，如果錯誤發生，會被放為NULL。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    假如輸入的文本不包括sql語句，調用過程必須負責在編譯好的SQL語句完成使用後使用sqlite3_finalize()刪除它</span></span><br><span class="line"><span class="comment">    此函數把sql語句編譯成二進制字節碼，以後方便後面的函數使用，</span></span><br><span class="line"><span class="comment">       編譯好的東西就是stmt(第五個參數),要執行sql來查詢就要編譯。</span></span><br><span class="line"><span class="comment">   */</span></span><br></pre></td></tr></table></figure>
+
+<p>執行編譯好的sql語句，獲得結果的一行</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">**sqlite3_step**</span><br><span class="line"></span><br><span class="line">	<span class="comment">//函數原型</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">sqlite3_step</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">			sqlite3_stmt*</span></span></span><br><span class="line"><span class="params"><span class="function">	)</span></span>;</span><br><span class="line">	<span class="comment">// stmt: 剛才執行sqlite3_prepare後得到的 sql語句句炳</span></span><br><span class="line">	<span class="comment">// * 執行sql語句，得到返回結果的一行，只是抽象得到，真正要得到具體數據，須利用其它函數。因為是返回數值的一行，所以要用循環語句來得到所有的行。</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>sqlite3_column</strong><br>這個過程從執行<code>sqlite3_step</code>執行一個準備語句得到的結果集的當前行中返回一個列。每次<code>sqlite3_step</code>得到一個結果集的列停下後，這個過程就可以被多次調用去查詢這個行的各列的數值。對列操作是有多個函數，均用<code>sqlite3_column</code>為前綴。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> 				<span class="keyword">void</span> *<span class="title">sqlite3_column_blob</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> 				<span class="title">sqlite3_column_bytes</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>; <span class="comment">//得到size </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> 				<span class="title">sqlite3_column_bytes16</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> 				<span class="title">sqlite3_column_double</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> 				<span class="title">sqlite3_column_int</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function">sqlite3_int64 		        <span class="title">sqlite3_column_int64</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>             *<span class="title">sqltie3_column_text</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">void</span> 			*<span class="title">sqlite3_column_text16</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> 				<span class="title">sqlite3_column_type</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br><span class="line"><span class="function">sqlite3_value 		        *<span class="title">sqlite3_column_value</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span> iCol)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>第一個參數，從<code>sqlite3_prepare</code>返回來的prepared statement對象的指針<br>第二個參數，指定這一行中的想要被返回的列的索引。最左邊的索引號為0，行的列數可以使用<strong>sqlite3_column_count</strong>獲得。ex. 得到第二列第五行(台灣)</p>
+<p>這些過程會根據情況去轉換數值的類型，sqlite3 內部使用<code>sqlite3_snprintf</code>去自行進行這個轉換，轉換表如下:</p>
+<table>
+<thead>
+<tr>
+<th>內部類型</th>
+<th>請求類型</th>
+<th>轉換結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NULL</td>
+<td>INTEGER</td>
+<td>0</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>FLOAT</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>TEXT</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>BLOB</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>INTEGER</td>
+<td>FLOAT</td>
+<td>從整型轉換到浮點型</td>
+</tr>
+<tr>
+<td>INTEGER</td>
+<td>TEXT</td>
+<td>整形的ascii碼顯示</td>
+</tr>
+<tr>
+<td>INTEGER</td>
+<td>BLOB</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>INTEGER</td>
+<td>浮點型轉換到整數型</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>TEXT</td>
+<td>浮點型的ascii顯示</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>BLOB</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>INTEGER</td>
+<td>使用atoi</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>FLOAT</td>
+<td>使用atoi</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>BLOB</td>
+<td>沒有轉換</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>INTEGER</td>
+<td>先到text, 然後使用atoi</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>FLOAT</td>
+<td>先到text, 然後使用atoi</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>TEXT</td>
+<td>如果需要的話添加0中止符</td>
+</tr>
+</tbody></table>
+<p>下面是幾個最安全和最簡單的使用方法</p>
+<ul>
+<li>先<strong>sqlite3_column_text</strong>，然後 <strong>sqlite3_column_bytes</strong></li>
+<li>先<strong>sqlite3_column_blob</strong>，然後<strong>sqlite3_column_bytes</strong></li>
+<li>先<strong>sqlite3_column_text16</strong>，然後<strong>sqlite3_column_bytes16</strong></li>
+</ul>
+<p>銷毀 sql 語句句炳 : 銷毀 <code>stmt</code><br><strong>sqlite3_finalize</strong><br>創建之後一定要銷毀就行</p>
+<h3 id="2-Sqlite3-的擴展用法"><a href="#2-Sqlite3-的擴展用法" class="headerlink" title="2. Sqlite3 的擴展用法"></a>2. Sqlite3 的擴展用法</h3><p><strong>sqlite3_exec</strong> 進階用法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函數原型</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_exec</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">		sqlite3*,  			<span class="comment">// an open database</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">const</span> <span class="keyword">char</span> *sql,	<span class="comment">// SQL to be evaluated</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">int</span> (*callback)(<span class="keyword">void</span>*, <span class="keyword">int</span>, <span class="keyword">char</span>**, <span class="keyword">char</span>** ),	<span class="comment">//回調函數</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">void</span>*,				<span class="comment">// **傳遞給回調函數的參數**</span></span></span></span><br><span class="line"><span class="params"><span class="function">		<span class="keyword">char</span> **errmsg		<span class="comment">// Error msg written here</span></span></span></span><br><span class="line"><span class="params"><span class="function">		)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>函數的作用就是執行 sql 語句，上次我們使用此函數執行 <strong>CREATE</strong>，<strong>TABLE</strong>命令，是不帶返回值的。其實<em>sqlite3_exec</em>也能執行 <strong>SELECT</strong> 語句，而且也能獲得返回值，其中第三個參數(是個回調函數)起到很大的作用。</p>
+<p><strong>回調函數</strong><br>就是在<strong>sqlite3_exec</strong>執行完成後自動被調用的函數。如果<strong>SELECT</strong>返回多行數據，每返回一行回調函數將執行一次(其中 <code>sqlite3_exec</code> 只用調用一次)</p>
+<p><strong>回調函數格式</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in"><span class="keyword">int</span></span> (*callback)(<span class="keyword">void</span>*, <span class="keyword">int</span>, <span class="keyword">char</span>**, <span class="keyword">char</span>**);</span><br><span class="line"><span class="comment">// 第一參數是 sqlite3_exec傳進來的參數，也就是回調函數跟外界交流的通道，比如:可以傳一個結構指針地址進來，然後把查詢到的數據保存在結構體中。</span></span><br><span class="line"><span class="comment">// 第二參數是 查詢到的這一行總字段數 n (總列數)</span></span><br><span class="line"><span class="comment">// 第三參數是一個數組，從 0 到 n-1 保存著諮詢結果，都是字符串。</span></span><br><span class="line"><span class="comment">// 第四參數和第三參數對應，是每個字段的字段名，也是字符串。</span></span><br></pre></td></tr></table></figure>
+<p>舉例</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ALLSelect</span><span class="params">(sqlite3 *db)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>* errmsg;</span><br><span class="line">	<span class="keyword">int</span> rc = <span class="built_in">sqlite3_exec</span>(db, <span class="string">&quot;select * from addlist&quot;</span>, GetData, <span class="literal">NULL</span>, &amp;errmsg);</span><br><span class="line">	<span class="keyword">if</span>(rc != SQLITE_OK)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, errmsg);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetData</span><span class="params">(<span class="keyword">void</span> * para, <span class="keyword">int</span> n_column, <span class="keyword">char</span>** data_column, <span class="keyword">char</span>** name_column)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;編號:%d 姓名:%s 性別:%s 電話:%s Email:%s 地址:%s\n&quot;</span>,</span><br><span class="line">			data_column[<span class="number">0</span>],</span><br><span class="line">			data_column[<span class="number">1</span>],</span><br><span class="line">			data_column[<span class="number">2</span>],</span><br><span class="line">			data_column[<span class="number">3</span>],</span><br><span class="line">			data_column[<span class="number">4</span>],</span><br><span class="line">			data_column[<span class="number">5</span>]</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相比於之前用 <code>sqlite3_prepare</code>, <code>sqlite3_step</code> 要簡單的多，但是如果數據庫中有 **二進制文件(圖片，壓縮包)**，就不能使用此方法。</p>
+<h3 id="3-Sqlite3-的進階用法"><a href="#3-Sqlite3-的進階用法" class="headerlink" title="3. Sqlite3 的進階用法"></a>3. Sqlite3 的進階用法</h3><p>sql 語句新用法: 使用通配符創建一個 sql 語句，然後使用<strong>sqlite3_bind</strong>來給sql 綁定數據。<br>舉例定義一個sql語句 : </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">char</span>* sql = <span class="string">&quot;INSERT INTO pass(pass_text) VALUES(?);&quot;</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">此語句中加入了**?**通配符，直接執行會失敗。</span></span><br><span class="line"><span class="comment">數據綁到這個sql語句中，好處是當要插入大量數據的時候，如果每次都用sqlite3_prepare來準備 sql 語句的話會非常慢。</span></span><br><span class="line"><span class="comment">所以使用通配符先建立一個sql語句，用sqlite3_prepare準備好。</span></span><br><span class="line"><span class="comment">在進入循環，每次循環只需調用sqlite3_bind之類的函數給通配符賦值，再用sqlite3_step來執行即可。</span></span><br><span class="line"><span class="comment">一個程序裡面只需要調用一次sqlite3_prepare，減少很多運算時間。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>舉例來說 : </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 *db;</span><br><span class="line"><span class="keyword">char</span> *errmsg;</span><br><span class="line"><span class="keyword">int</span> i =<span class="number">0</span>;</span><br><span class="line"><span class="built_in">sqlite3_open</span>(<span class="string">&quot;xxx,db&quot;</span>, &amp;db);</span><br><span class="line"><span class="keyword">int</span> rc = <span class="built_in">sqlite3_exec</span>(db,<span class="string">&quot;CREATE TABLE IF NOT EXISTS pass(pass_id INTEGER PRIMARY 	KEY,pass_text VARCHAR(64) UNIQUE);&quot;</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,&amp;errmsg);	</span><br><span class="line"><span class="keyword">char</span>* sql = <span class="string">&quot;INSERT INTO 	pass(pass_text) VALUES(?);&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(SQLITE_OK != rc)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, errmsg);</span><br><span class="line">	return0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sqlite3_stmt* stmt; <span class="comment">// sql 編譯完後的</span></span><br><span class="line"><span class="built_in">sqlite3_prepare</span>(db, sql, <span class="number">-1</span>, &amp;stmt, <span class="literal">NULL</span>); <span class="comment">// 先把 prepare 準備好的 sql 語句 </span></span><br><span class="line"><span class="keyword">char</span> szPass[<span class="number">256</span>];</span><br><span class="line">FILE *pf = <span class="built_in">fopen</span>(<span class="string">&quot;pass.txt&quot;</span>,<span class="string">&quot;r&quot;</span>);</span><br><span class="line"><span class="keyword">int</span> nRow = <span class="built_in">CountRow</span>(pf);</span><br><span class="line"><span class="comment">// 自己寫一個CountRow函數計算字典所有行數</span></span><br><span class="line"><span class="built_in">fseek</span>(pf, <span class="number">0</span>, SEEK_SET);</span><br><span class="line"><span class="comment">//將文件指針訂位到文件開頭</span></span><br><span class="line"><span class="built_in">sqlite3_exec</span>(db, <span class="string">&quot;begin;&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>); <span class="comment">// 重要: 開始sqlite3事務，不然執行sql每條操作都會執行一次此。開啟後就不會每次都執行一次。提升速度</span></span><br><span class="line"><span class="comment">//開啟sqlite事務，加快插入db速度(importance)</span></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">fgets</span>(szPass, <span class="number">256</span>, pf) != NULLL)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">sqlite3_bind_text</span>(stmt,<span class="number">1</span>,szPass,<span class="number">-1</span>,SQLITE_STATIC);</span><br><span class="line">	rc =<span class="built_in">sqlite3_step</span>(stmt);</span><br><span class="line">	<span class="keyword">if</span>(SQLITE_DONE != rc)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;數據%s重複或插入錯誤\n&quot;</span>, szPass);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;是否繼續(1繼續or 0退出)\n&quot;</span>);</span><br><span class="line">		<span class="keyword">int</span> n;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">		<span class="keyword">if</span>( <span class="number">1</span> == n)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sqlite3_reset</span>(stmt); <span class="comment">//重新設定stmt ，才能每次給sql新的綁定。 </span></span><br><span class="line">	i++;</span><br><span class="line">	<span class="keyword">if</span>( i % (nRow/<span class="number">100</span>) == <span class="number">0</span> )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;已完成%02d/%d\n&quot;</span>, i , nRow);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">sqlite3_exec</span>(db, <span class="string">&quot;commit;&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>); <span class="comment">//重要 關閉sqlite事務</span></span><br><span class="line"><span class="comment">// 關閉sqlite3事務</span></span><br><span class="line"><span class="built_in">sqlite3_finalize</span>(stmt); <span class="comment">// 釋放 sql 句炳</span></span><br><span class="line"><span class="built_in">sqlite3_close</span>(db); <span class="comment">// 釋放 db 連接</span></span><br><span class="line"><span class="built_in">fclose</span>(pf); <span class="comment">// 關閉文件</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;finish\n&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中while迴圈第一句是 <strong>sqlite3_bind_text</strong> 函數，此函數是sqlite3_bind一組函數中的其中一組，作用是:將字符串類型的數據綁訂到通配符(?)中。舉例通過fgets函數得到的密碼是12356，則綁定後我們的sql語句就變成了(“INSERT INTO pass(pass_text) VALUES(‘123456’);”)。在使用<strong>sqlite3_step</strong>執行它，就可以完成插入工作。    </p>
+<p>以下是所有<code>sqlite3_bind</code>函數<br><a target="_blank" rel="noopener" href="http://www.sqlite.org/c3ref/bind_blob.html">http://www.sqlite.org/c3ref/bind_blob.html</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_blob</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, <span class="keyword">const</span>, <span class="keyword">void</span>*, <span class="keyword">int</span> n, <span class="keyword">void</span>(*)(<span class="keyword">void</span>*))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_double</span><span class="params">(slqite3_stmt*, <span class="keyword">int</span>, <span class="keyword">double</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_int</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_int63</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, sqlite3_int64)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_null</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_text</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, <span class="keyword">const</span> <span class="keyword">char</span>*, <span class="keyword">int</span> n, <span class="keyword">void</span>(*)(<span class="keyword">void</span>*))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_text16</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, <span class="keyword">const</span> <span class="keyword">void</span>*, <span class="keyword">int</span>, <span class="keyword">void</span>(*)(<span class="keyword">void</span>*))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_value</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, <span class="keyword">const</span> sqlite3_value*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqlite3_bind_zeroblob</span><span class="params">(sqlite3_stmt*, <span class="keyword">int</span>, <span class="keyword">int</span> n )</span></span>;</span><br></pre></td></tr></table></figure>
+<p>舉例說明 :<br><code>sqlite3_bind_text(sqlite3_stmt*, int, const char**, int n , void(*)(void*));</code><br>各參數的意思<br>第一個參數是 :  stmt : sq 語句 句炳<br>第二個參數是 : <strong>通配符</strong>的索引(也就是第幾個通配符綁定值)，從 1 開始<br>第三個參數是 : 等待綁定的字符串<br>第四個參數是 : 字符串長度，填寫 -1 “表示從第一個字符開始到第一個\0結束”<br>第五個參數是 : 填入SQLITE_STATIC，表示”當本函數執行失敗就釋放通配符”</p>
+<h4 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h4><p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/C/sqlite3_1.html">https://www.leavesongs.com/C/sqlite3_1.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://read01.com/zh-tw/BeRQde.html#.WtiSA4huaUk">https://read01.com/zh-tw/BeRQde.html#.WtiSA4huaUk</a></p>
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTUxNTI1Njk2NF19
+-->
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/04/23/lib-SQLiteAPI/" data-id="clfpmmj1a000fsgvg0r32d535" data-title="SQLite(3)(C/C++) API" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLite/" rel="tag">SQLite</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/25/tool-Scoop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Scoop 套件管理軟體
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/22/lib-SQLiteCMD/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">SQLite(2) Command</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Daily/">Daily</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Library/">Library</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Library/Storage/">Storage</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Program/Data-Structure/">Data Structure</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Coding/">Coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/System/">System</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2023/" rel="tag">2023</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/" rel="tag">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Lang/" rel="tag">C Lang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Doxygen/" rel="tag">Doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLite/" rel="tag">SQLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scoop/" rel="tag">Scoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series-Intro/" rel="tag">Series Intro</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2023/" style="font-size: 10px;">2023</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/C-Lang/" style="font-size: 10px;">C Lang</a> <a href="/tags/Doxygen/" style="font-size: 10px;">Doxygen</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/SQLite/" style="font-size: 20px;">SQLite</a> <a href="/tags/Scoop/" style="font-size: 10px;">Scoop</a> <a href="/tags/Series-Intro/" style="font-size: 10px;">Series Intro</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/27/Daily-03-27-23/">Daily-03-27-23</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/15/202108-DS-Intro/">DataStructure 1 - Intro</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/31/tool-plantUML/">PlantUML 介紹</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/30/tool-hexo/">Hexo 簡介</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 utomore<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

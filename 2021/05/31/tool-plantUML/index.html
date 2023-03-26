@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>PlantUML 介紹 | Again</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="UML 介紹當需要視覺化物件間的關係 UML 時，可以直接快速的使用對應的程式格式顯示出想要的結果，雖然可能圖案不是非常美觀，但主要適用於快速規劃出一個架構，讓團隊中每個人的認知是統一的。 有各式各樣的 UML 繪製工具，其實使用 ppt 或是 draw.io 也可以畫，工具並沒有高低之分，主要是看自己適合哪一種。這邊將介紹 plantUML 結合 vscode 來進行繪製。  PlantUML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PlantUML 介紹">
+<meta property="og:url" content="http://example.com/2021/05/31/tool-plantUML/index.html">
+<meta property="og:site_name" content="Again">
+<meta property="og:description" content="UML 介紹當需要視覺化物件間的關係 UML 時，可以直接快速的使用對應的程式格式顯示出想要的結果，雖然可能圖案不是非常美觀，但主要適用於快速規劃出一個架構，讓團隊中每個人的認知是統一的。 有各式各樣的 UML 繪製工具，其實使用 ppt 或是 draw.io 也可以畫，工具並沒有高低之分，主要是看自己適合哪一種。這邊將介紹 plantUML 結合 vscode 來進行繪製。  PlantUML">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/05/31/tool-plantUML/demoUML.png">
+<meta property="og:image" content="http://example.com/2021/05/31/tool-plantUML/installPlugin.png">
+<meta property="og:image" content="http://example.com/2021/05/31/tool-plantUML/finish.png">
+<meta property="og:image" content="http://example.com/2021/05/31/tool-plantUML/exportImage.png">
+<meta property="article:published_time" content="2021-05-31T14:04:09.000Z">
+<meta property="article:modified_time" content="2023-03-26T16:18:10.714Z">
+<meta property="article:author" content="utomore">
+<meta property="article:tag" content="UML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/05/31/tool-plantUML/demoUML.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Again" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Again</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">From Here</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool-plantUML" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/05/31/tool-plantUML/" class="article-date">
+  <time class="dt-published" datetime="2021-05-31T14:04:09.000Z" itemprop="datePublished">2021-05-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tool/">Tool</a>►<a class="article-category-link" href="/categories/Tool/Note/">Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      PlantUML 介紹
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="UML-介紹"><a href="#UML-介紹" class="headerlink" title="UML 介紹"></a>UML 介紹</h2><p>當需要視覺化物件間的關係 UML 時，可以直接快速的使用對應的程式格式顯示出想要的結果，雖然可能圖案不是非常美觀，但<strong>主要適用於快速規劃出一個架構，讓團隊中每個人的認知是統一的</strong>。</p>
+<p>有各式各樣的 UML 繪製工具，其實使用 ppt 或是 draw.io 也可以畫，工具並沒有高低之分，主要是看自己適合哪一種。這邊將介紹 plantUML 結合 vscode 來進行繪製。</p>
+<hr>
+<h2 id="PlantUML-支援種類"><a href="#PlantUML-支援種類" class="headerlink" title="PlantUML 支援種類"></a>PlantUML 支援種類</h2><p><strong>PlantUML</strong>是一個開源的 UML 繪製工具，主要提供以下種類圖的繪製:</p>
+<ul>
+<li>Sequence diagram</li>
+<li>Usecase diagram</li>
+<li>Class diagram</li>
+<li>Activity diagram</li>
+<li>Component diagram</li>
+<li>Deployment diagram</li>
+<li>State diagram</li>
+<li>Timing diagram</li>
+</ul>
+<hr>
+<h2 id="PlantUML-範例"><a href="#PlantUML-範例" class="headerlink" title="PlantUML 範例"></a>PlantUML 範例</h2><p>使用對應格式的程式碼(Sequence diagram)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@startuml practice</span><br><span class="line"></span><br><span class="line">Alice -&gt; &quot;Bob()&quot; : Hello</span><br><span class="line">&quot;Bob()&quot; -&gt; &quot;This is very\n long&quot; as Long</span><br><span class="line">&#x27; 註解方式</span><br><span class="line">Long --&gt; &quot;Bob()&quot; : ok</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p>可以產生對應的圖片</p>
+<img src="/2021/05/31/tool-plantUML/demoUML.png" class="" title="demoUML">
+
+<hr>
+<h2 id="PlantUML-環境安裝"><a href="#PlantUML-環境安裝" class="headerlink" title="PlantUML 環境安裝"></a>PlantUML 環境安裝</h2><p>Dependency: VScode + PlantUML plugin + Java SE Development Kit (+ Graphviz)</p>
+<p>官網寫沒有安裝 Graphviz 就只能繪製 Sequence Diagram，但是我都可以繪製，所以暫時沒裝。</p>
+<p>首先必須先下載 VScode : <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a><br>下載完後到<strong>延伸模組</strong>搜尋: PlantUML，如下圖:</p>
+<img src="/2021/05/31/tool-plantUML/installPlugin.png" class="" title="installPlugin">
+
+<p>套件安裝完之後可以隨意開啟一個資料夾，嘗試上方的程式碼。利用快捷鍵<code>Alt+d</code>，可以在右方直接顯示正在輸入的結果圖形，同步調整。</p>
+<p>如果這時候顯示<strong>紅色驚嘆號</strong>，表示需要下載 Java 開發套件<br>Java SE Development kit 下載: <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jdk16-downloads.html">https://www.oracle.com/java/technologies/javase-jdk16-downloads.html</a></p>
+<p>安裝完後，重新啟動 vscode 就可以看到圖形了。</p>
+<img src="/2021/05/31/tool-plantUML/finish.png" class="" title="finish">
+<h4 id="匯出圖片"><a href="#匯出圖片" class="headerlink" title="匯出圖片"></a>匯出圖片</h4><p>使用 vscode 快捷鍵 <code>ctrl + shift + p</code> 輸入 <code>plantuml</code>，可以看到一個<strong>匯出目前圖表</strong>，點選後選擇輸出的格式即可。</p>
+<img src="/2021/05/31/tool-plantUML/exportImage.png" class="" title="exportImage">
+
+<p>目前先講到這，未來再做不同 UML 格式的文章。<br>謝謝</p>
+<hr>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p>“Wiki UML”: <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80">https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80</a><br>“vscode”: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a><br>“Java SE Dev” : <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jdk16-downloads.html">https://www.oracle.com/java/technologies/javase-jdk16-downloads.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/05/31/tool-plantUML/" data-id="clfpmmj1r001tsgvgez0jg3pu" data-title="PlantUML 介紹" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/" rel="tag">UML</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/08/15/202108-DS-Intro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          DataStructure 1 - Intro
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/30/tool-hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Hexo 簡介</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Daily/">Daily</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Library/">Library</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Library/Storage/">Storage</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Program/Data-Structure/">Data Structure</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Coding/">Coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/System/">System</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2023/" rel="tag">2023</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/" rel="tag">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Lang/" rel="tag">C Lang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Doxygen/" rel="tag">Doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLite/" rel="tag">SQLite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scoop/" rel="tag">Scoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series-Intro/" rel="tag">Series Intro</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2023/" style="font-size: 10px;">2023</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/C-Lang/" style="font-size: 10px;">C Lang</a> <a href="/tags/Doxygen/" style="font-size: 10px;">Doxygen</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/SQLite/" style="font-size: 20px;">SQLite</a> <a href="/tags/Scoop/" style="font-size: 10px;">Scoop</a> <a href="/tags/Series-Intro/" style="font-size: 10px;">Series Intro</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/27/Daily-03-27-23/">Daily-03-27-23</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/15/202108-DS-Intro/">DataStructure 1 - Intro</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/31/tool-plantUML/">PlantUML 介紹</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/30/tool-hexo/">Hexo 簡介</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 utomore<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
