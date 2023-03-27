@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>VSCode-vcpkg-CMake | Again</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="In my free time, I tried to build the enviroment for my side-project which I use to learn opengl. I chose vscode + vcpkg(windows) + cmake as my coding environment. Of course using visual studio is the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode-vcpkg-CMake">
+<meta property="og:url" content="http://example.com/2023/03/28/vscode-vcpkg-cmake/index.html">
+<meta property="og:site_name" content="Again">
+<meta property="og:description" content="In my free time, I tried to build the enviroment for my side-project which I use to learn opengl. I chose vscode + vcpkg(windows) + cmake as my coding environment. Of course using visual studio is the">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-03-27T16:01:03.000Z">
+<meta property="article:modified_time" content="2023-03-27T16:06:09.643Z">
+<meta property="article:author" content="utomore">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Side project">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Again" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Again</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">From Here</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-vscode-vcpkg-cmake" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/28/vscode-vcpkg-cmake/" class="article-date">
+  <time class="dt-published" datetime="2023-03-27T16:01:03.000Z" itemprop="datePublished">2023-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ProjectManagement/">ProjectManagement</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      VSCode-vcpkg-CMake
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>In my free time, I tried to build the enviroment for my side-project which I use to learn opengl.</p>
+<p>I chose vscode + vcpkg(windows) + cmake as my coding environment.</p>
+<p>Of course using visual studio is the easier way to build with vcpkg and I have done it before. So today I chose a different approach to build the side-project.</p>
+<span id="more"></span>
+
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>First of all, you need to install the software: vcpkg, CMake, VScode, including the following extensions: C/C++, CMake, CMake Tools.</p>
+<p>Depending on your compiler, you may need to install Visual Studio or MinGW(for GCC, Clang).</p>
+<h2 id="Setting-Up-vcpkg"><a href="#Setting-Up-vcpkg" class="headerlink" title="Setting Up vcpkg"></a>Setting Up vcpkg</h2><p>To install vcpkg, clone the vcpkg git repository from github and run the <strong>bootstrap-vcpkg.bat</strong> script.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/microsoft/vcpkg</span><br><span class="line">.\vcpkg\bootstrap-vcpkg.bat</span><br></pre></td></tr></table></figure>
+<p>You can add the path of vcpkg folder to the Path environment variable.</p>
+<ul>
+<li>Type “env” in your Start menu, and then add the path to the Path variable.</li>
+</ul>
+<h3 id="Vcpkg-Command"><a href="#Vcpkg-Command" class="headerlink" title="Vcpkg Command"></a>Vcpkg Command</h3><h4 id="Integrate-vcpkg-into-project"><a href="#Integrate-vcpkg-into-project" class="headerlink" title="Integrate vcpkg into project"></a>Integrate vcpkg into project</h4><ol>
+<li><p>Global method</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg.exe integrate install</span><br></pre></td></tr></table></figure>
+<p>To remove</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg.exe integrate remove</span><br></pre></td></tr></table></figure></li>
+<li><p>Only for specific projects (visual studio)</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg.exe integrate project</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Install-libraries"><a href="#Install-libraries" class="headerlink" title="Install libraries"></a>Install libraries</h4><ul>
+<li>Check the library name</li>
+<li>(<strong>Important</strong>)Detemine the library version type.<ul>
+<li>x86-windows</li>
+<li>x64-windows</li>
+<li>arm64<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg/vcpkg.exe install [package name]</span><br></pre></td></tr></table></figure>
+For example:<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg/vcpkg.exe install jsoncpp:x86-windows</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="Removing-a-library"><a href="#Removing-a-library" class="headerlink" title="Removing a library"></a>Removing a library</h4><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg.exe remove jsoncpp</span><br></pre></td></tr></table></figure>
+<h4 id="Listing-libraries"><a href="#Listing-libraries" class="headerlink" title="Listing libraries"></a>Listing libraries</h4><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg.exe list</span><br></pre></td></tr></table></figure>
+
+<h4 id="Exporting-libraries"><a href="#Exporting-libraries" class="headerlink" title="Exporting libraries"></a>Exporting libraries</h4><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./vcpkg.exe export jsoncpp jsoncpp:x86-windows --<span class="number">7</span>zip</span><br></pre></td></tr></table></figure>
+
+<h2 id="Setting-up-VSCode"><a href="#Setting-up-VSCode" class="headerlink" title="Setting up VSCode"></a>Setting up VSCode</h2><p>After installing the required software, open VSCode with a folder and create the following project structure:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">project/</span><br><span class="line">    .vscode/</span><br><span class="line">        setting.json</span><br><span class="line">    src/</span><br><span class="line">        main.cpp</span><br><span class="line">    CMakeLists.txt</span><br></pre></td></tr></table></figure>
+<p>Add the following setting to the setting.json file.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;cmake.configureSettings&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;CMAKE_TOOLCHAIN_FILE&quot;</span>: <span class="string">&quot;&#123;Path of vcpkg&#125;/vcpkg/scripts/buildsystems/vcpkg.cmake&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;VCPKG_TARGET_TRIPLET&quot;</span>: <span class="string">&quot;x86-windows&quot;</span> <span class="comment">// according to which version of libraries you install.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Setting-up-CMake"><a href="#Setting-up-CMake" class="headerlink" title="Setting up CMake"></a>Setting up CMake</h2><p>After install the library from vcpkg, you will see the instructions on how to add it to your CMake project. Add these two lines into your CMakeLists.txt file:</p>
+<ul>
+<li>find_package()</li>
+<li>target_link_libraries()</li>
+</ul>
+<p>Here is a simple example:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(main VERSION <span class="number">0.0</span>.<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(main src/main.cpp)</span><br><span class="line"><span class="keyword">target_compile_features</span>(main PRIVATE cxx_std_20)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(fmt CONFIG REQUIRED)</span><br><span class="line">// adding <span class="keyword">find_package</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(main</span><br><span class="line">    PRIVATE</span><br><span class="line">        fmt::fmt</span><br><span class="line">        // Libraries installed from vcpkg.</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Release-amp-Debug"><a href="#Release-amp-Debug" class="headerlink" title="Release &amp; Debug"></a>Release &amp; Debug</h2><p>Look at the bottom sidebar in VSCode. It shows current settings for:</p>
+<ul>
+<li><strong>CMake Mode</strong><ul>
+<li>Debug</li>
+<li>Release</li>
+</ul>
+</li>
+<li><strong>Build compiler</strong><ul>
+<li>Visual Studio Community</li>
+<li>gcc</li>
+<li>clang</li>
+</ul>
+</li>
+<li><strong>Build button</strong></li>
+<li><strong>[All Build]</strong><ul>
+<li>Specific target to build</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/28/vscode-vcpkg-cmake/" data-id="clfr0ntcz000058vgf6hn5r19" data-title="VSCode-vcpkg-CMake" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Programming/" rel="tag">Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Side-project/" rel="tag">Side project</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/03/27/Daily-03-27-23/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Daily-03-27-23</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Daily/">Daily</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Daily/2023/">2023</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Daily/2023/Mar/">Mar.</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Library/">Library</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Library/Storage/">Storage</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Program/Data-Structure/">Data Structure</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ProjectManagement/">ProjectManagement</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Blog/">Blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Coding/">Coding</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Note/">Note</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/System/">System</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/" rel="tag">Blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Doxygen/" rel="tag">Doxygen</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Journal/" rel="tag">Journal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming/" rel="tag">Programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLite/" rel="tag">SQLite</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scoop/" rel="tag">Scoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Side-project/" rel="tag">Side project</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Doxygen/" style="font-size: 10px;">Doxygen</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Journal/" style="font-size: 10px;">Journal</a> <a href="/tags/Programming/" style="font-size: 15px;">Programming</a> <a href="/tags/SQLite/" style="font-size: 20px;">SQLite</a> <a href="/tags/Scoop/" style="font-size: 10px;">Scoop</a> <a href="/tags/Side-project/" style="font-size: 10px;">Side project</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/28/vscode-vcpkg-cmake/">VSCode-vcpkg-CMake</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/27/Daily-03-27-23/">Daily-03-27-23</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/15/202108-DS-Intro/">DataStructure 1 - Intro</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/31/tool-plantUML/">PlantUML 介紹</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 utomore<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
