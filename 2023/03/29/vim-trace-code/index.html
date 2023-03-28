@@ -4,15 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>Kategorie: Mar. | Again</title>
+  <title>vim-trace-code | Again</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Again">
-<meta property="og:url" content="http://example.com/categories/Daily/2023/Mar/index.html">
+  <meta name="description" content="In Today’s blog post, I will show you how I trace code using vim in my job. Originally, I use VSCode and some extensions to trace c code in my company, but the dev server is shared by all developers.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim-trace-code">
+<meta property="og:url" content="http://example.com/2023/03/29/vim-trace-code/index.html">
 <meta property="og:site_name" content="Again">
+<meta property="og:description" content="In Today’s blog post, I will show you how I trace code using vim in my job. Originally, I use VSCode and some extensions to trace c code in my company, but the dev server is shared by all developers.">
 <meta property="og:locale">
+<meta property="article:published_time" content="2023-03-28T17:02:50.000Z">
+<meta property="article:modified_time" content="2023-03-28T17:03:33.395Z">
 <meta property="article:author" content="utomore">
-<meta property="article:tag" content="game, program, tools">
+<meta property="article:tag" content="vim">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Again" type="application/atom+xml">
@@ -74,39 +78,87 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/03/27/Daily-03-27-23/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-03-26T16:40:28.000Z" itemprop="datePublished">Mar 27</time>
+        <section id="main"><article id="post-vim-trace-code" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/29/vim-trace-code/" class="article-date">
+  <time class="dt-published" datetime="2023-03-28T17:02:50.000Z" itemprop="datePublished">2023-03-29</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tool/">Tool</a>►<a class="article-category-link" href="/categories/Tool/Editor/">Editor</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/03/27/Daily-03-27-23/">Daily-03-27-23</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      vim-trace-code
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>In Today’s blog post, I will show you how I trace code using vim in my job. Originally, I use VSCode and some extensions to trace c code in my company, but the dev server is shared by all developers. I was concerned that the performance might decline due to VSCode remote code tracing(as some extensions cause it). So I switched to using vim for my job.</p>
+<span id="more"></span>
+<h2 id="Vim-Plugins"><a href="#Vim-Plugins" class="headerlink" title="Vim Plugins"></a>Vim Plugins</h2><p>Here are plugins I installed. I use <code>vim-plug</code> to manage these plugins.</p>
+<ul>
+<li>vim-plug</li>
+<li>nerdtree</li>
+<li>LeaderF</li>
+<li>nerdcommenter</li>
+<li>auto-pairs</li>
+<li>vim-fugitive (less using)</li>
+<li>vim-cpp-enhanced-highlight</li>
+<li>vim-airline</li>
+<li>vim-airline-themes</li>
+</ul>
+<h2 id="Setting-vimrc"><a href="#Setting-vimrc" class="headerlink" title="Setting vimrc"></a>Setting vimrc</h2><p>I only use <code>LeaderF</code> and built-in <code>jumps</code> and <code>marks</code> to trace code. I have set up the hotkeys in my <code>.vimrc</code> like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;C-l&gt;f :Leaderf file --reverse&lt;cr&gt;</span><br><span class="line">nnoremap &lt;C-l&gt;F :Leaderf function&lt;cr&gt;</span><br><span class="line">nnoremap &lt;C-l&gt;b :Leaderf buffer&lt;cr&gt;</span><br><span class="line">nnoremap &lt;C-l&gt;r :&lt;C-U&gt;&lt;C-R&gt;=printf(&quot;Leaderf rg -i %s &quot;, expand(&quot;&lt;cword&gt;&quot;))&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Note: <code>&lt;C-l&gt;F</code> only supports C code because I created a c code database using cscope and ctags.</li>
+</ul>
+<p>Set up some cscope in root folder of our project.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cscope -RbU</span><br></pre></td></tr></table></figure>
+
+<p>Add hotkeys to the file <code>.vimrc</code></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">noremap &lt;leader&gt;cs :cs <span class="built_in">find</span> s</span><br><span class="line">noremap &lt;C-_&gt;s :cs <span class="built_in">find</span> s &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">noremap &lt;C-_&gt;g :cs <span class="built_in">find</span> g &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">noremap &lt;C-_&gt;c :cs <span class="built_in">find</span> c &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">noremap &lt;C-_&gt;d :cs <span class="built_in">find</span> d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Tracing-Code"><a href="#Tracing-Code" class="headerlink" title="Tracing Code"></a>Tracing Code</h2><p>First, use Vim to open the empty file in the root folder, which is in the same location as the cscope database.<br>Use <code>ctrl-l r</code> or <code>ctrl-l f</code> to search the keywords in the file or filename, then select the desired file from the search results. I usually use <code>:vs</code> to split the Vim pane and compare two files or to reference files. </p>
+<p>As i navigate through files, I use <code>ctrl-o</code> or <code>ctrl-i</code> to jump back or forward to the previous locations. If I’m working with C code, I use <code>ctrl-/ s</code>, <code>ctrl-/ g</code> and <code>ctrl-/ c</code> to jump between C functions. Sometimes, I use <code>ctrl-l F</code> to display all functions in current C file and jump to a specific function.</p>
+<p>Additionally, you can use <code>ctrl-l b</code> to view the buffer storing the history of files you’ve visited.</p>
+<p>This is how I trace cdoe in our company’s project.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/29/vim-trace-code/" data-id="clfsic38t0000f8vgha1gavva" data-title="vim-trace-code" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/03/28/vscode-vcpkg-cmake/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">VSCode-vcpkg-CMake</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
